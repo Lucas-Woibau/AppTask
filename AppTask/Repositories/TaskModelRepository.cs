@@ -39,9 +39,14 @@ namespace AppTask.Repositories
 
         public void Delete(TaskModel task)
         {
+            GetById(task.Id);
+
+            foreach (var subtask in task.SubTasks)
+            {
+                _db.Remove(subtask);
+            }
             _db.Tasks.Remove(task);
             _db.SaveChanges();
         }
-
     }
 }

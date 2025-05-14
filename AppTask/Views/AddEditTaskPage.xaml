@@ -25,11 +25,17 @@
                 <Border StrokeShape="RoundRectangle 10">
                     <Entry x:Name="Entry_TaskName" Placeholder="Tarefa" />
                 </Border>
+                <Label
+                    x:Name="Label_TaskNameRequired"
+                    Margin="0,-7,0,5"
+                    IsVisible="false"
+                    Text="O campo nome é obrigatório!"
+                    TextColor="Red" />
                 <Border StrokeShape="RoundRectangle 10">
                     <Editor
                         x:Name="Editor_TaskDescription"
                         HeightRequest="150"
-                        Placeholder="Descrição" />
+                        Placeholder="Descrição(opcional)" />
                 </Border>
                 <Border StrokeShape="RoundRectangle 10">
                     <DatePicker x:Name="DatePicker_TaskDate" />
@@ -59,7 +65,11 @@
                                 <Image
                                     Grid.Column="2"
                                     Source="trash.png"
-                                    WidthRequest="25" />
+                                    WidthRequest="25">
+                                    <Image.GestureRecognizers>
+                                        <TapGestureRecognizer CommandParameter="{Binding .}" Tapped="OnTapToDelete" />
+                                    </Image.GestureRecognizers>
+                                </Image>
                             </Grid>
                         </DataTemplate>
                     </BindableLayout.ItemTemplate>

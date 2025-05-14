@@ -3,6 +3,7 @@ using System;
 using AppTask.Database;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -10,9 +11,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace AppTask.Database.Migrations
 {
     [DbContext(typeof(AppTaskContext))]
-    partial class AppTaskContextModelSnapshot : ModelSnapshot
+    [Migration("20250514153927_ChangeDescriptionToNotNull")]
+    partial class ChangeDescriptionToNotNull
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "8.0.15");

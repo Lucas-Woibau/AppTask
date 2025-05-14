@@ -5,25 +5,25 @@ namespace AppTask.Views;
 
 public partial class StartPage : ContentPage
 {
-    private ITaskModelRepository _repository;
+    private ITaskModelRepository _taskModelRepository;
     public StartPage()
     {
-        InitializeComponent();
+        _taskModelRepository = new TaskModelRepository();
 
-        _repository = new TaskModelRepository();
+        InitializeComponent();
 
         LoadData();
     }
 
-    private void LoadData()
+    public void LoadData()
     {
-        var tasks = _repository.GetAll();
+        var tasks = _taskModelRepository.GetAll();
         CollectionViewTasks.ItemsSource = tasks;
         LblEmptyText.IsVisible = tasks.Count <= 0;
     }
 
     private void OnButtonClickedToAdd(object sender, EventArgs e)
-    {       
+    {
         Navigation.PushModalAsync(new AddEditTaskPage());
     }
 
@@ -39,7 +39,7 @@ public partial class StartPage : ContentPage
 
         if (confirm)
         {
-            _repository.Delete(task);
+            _taskModelRepository.Delete(task);
             LoadData();
         }
     }
@@ -49,6 +49,12 @@ public partial class StartPage : ContentPage
         var task = (TaskModel)e.Parameter;
 
         task.IsCompleted = ((CheckBox)sender).IsChecked;
-        _repository.Update(task);
+        _taskModelRepository.Update(task);
+    }
+
+    private void OnTapToEdit(object sender, TappedEventArgs e)
+    {
+        var task = (TaskModel)e.Parameter;
+        Navigation.PushModalAsync(new AddEditTaskPage(_taskModelRepository.GetById(task.Id)));
     }
 }

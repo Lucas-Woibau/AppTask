@@ -46,6 +46,9 @@
                             </CheckBox.GestureRecognizers>
                         </CheckBox>
                         <StackLayout Grid.Column="1">
+                            <StackLayout.GestureRecognizers>
+                                <TapGestureRecognizer CommandParameter="{Binding .}" Tapped="OnTapToEdit" />
+                            </StackLayout.GestureRecognizers>
                             <Label
                                 FontAttributes="Bold"
                                 Text="{Binding Name}"
